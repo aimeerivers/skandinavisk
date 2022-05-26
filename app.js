@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 app.set('view engine', 'pug');
 app.set('views', './views');
-app.use(express.static('public'));
+
+const path = require('path');
+app.use('/public', express.static(path.join(__dirname, 'public')));
 
 const { TranslationServiceClient } = require('@google-cloud/translate');
 const { text } = require('express');
