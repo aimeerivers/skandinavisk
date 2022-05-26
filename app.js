@@ -12,7 +12,7 @@ const projectId = 'sjov-oversaetter-1531150037182';
 const location = 'global';
 
 app.get('/', async (req, res) => {
-  var text = 'A shared Scandinavian language';
+  var text = 'Towards a shared Scandinavian language';
   if (req.query.q) text = req.query.q;
   res.render('home', {
     title: 'Skandinavisk',
