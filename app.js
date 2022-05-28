@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cleanse = require("sanitize-filename");
 app.set('view engine', 'pug');
 app.set('views', './views');
 app.use(express.static(__dirname + '/public'));
@@ -74,7 +75,7 @@ async function translateText(text, source, target) {
 async function speechToText(text, language) {
   const dir = `/tmp/audio/${language}`;
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  const fileName = `${dir}/${text}.mp3`;
+  const fileName = `${dir}/${cleanse(text)}.mp3`;
 
   if (!fs.existsSync(fileName)) {
     const request = {
