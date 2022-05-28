@@ -18,11 +18,15 @@ html(lang='en')
         th 🇸🇪 svensk
 
       tr
-        td #{da}
-        td #{no}
-        td #{sv}
-
-a(href="/speak/sv-SE/äpple.mp3") 🔉
-
-audio(controls="controls")
-  source(src="/speak/sv-SE/äpple.mp3" type="audio/mpeg")
+        td
+          p #{da}
+          audio(controls="controls")
+            source(src=`/speak/da-DK/${da}.mp3` type="audio/mpeg")
+        td
+          p #{no}
+          audio(controls="controls")
+            source(src=`/speak/nb-NO/${no}.mp3` type="audio/mpeg")
+        td
+          p #{sv}
+          audio(controls="controls")
+            source(src=`/speak/sv-SK/${sv}.mp3` type="audio/mpeg")

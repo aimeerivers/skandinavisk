@@ -12,6 +12,7 @@ const textToSpeech = require('@google-cloud/text-to-speech');
 const fs = require('fs');
 const util = require('util');
 const textToSpeechClient = new textToSpeech.TextToSpeechClient();
+const { pipeline } = require('stream');
 
 const projectId = 'sjov-oversaetter-1531150037182';
 const location = 'global';
@@ -24,8 +25,8 @@ app.get('/', async (req, res) => {
   if (req.query.d && req.query.d == 'Skandinavisk understanding') direction = 2;
 
   if (req.query.q) text = req.query.q;
-  if(text !== '') {
-    if(direction == 1) {
+  if (text !== '') {
+    if (direction == 1) {
       da = await translateText(text, 'en-GB', 'da-DK');
       no = await translateText(text, 'en-GB', 'nb-NO');
       sv = await translateText(text, 'en-GB', 'sv-SE');
@@ -46,9 +47,14 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/speak/:lang/:text.mp3', async (req, res) => {
-  await speechToText(req.params.text, req.params.lang);
-  res.setHeader('Content-Type', 'audio/mpeg');
-  res.send('output.mp3');
+  var file = await speechToText(req.params.text, req.params.lang);
+  var stat = fs.statSync(file);
+  res.writeHead(200, {
+    'Content-Type': 'audio/mpeg',
+    'Content-Length': stat.size
+  });
+  var readStream = fs.createReadStream(file);
+  pipeline(readStream, res, () => { });
 });
 
 async function translateText(text, source, target) {
@@ -65,23 +71,24 @@ async function translateText(text, source, target) {
 }
 
 async function speechToText(text, language) {
-  // Construct the request
-  const request = {
-    input: {text: text},
-    // Select the language and SSML voice gender (optional)
-    voice: {languageCode: language, ssmlGender: 'NEUTRAL'},
-    // select the type of audio encoding
-    audioConfig: {audioEncoding: 'MP3'},
-  };
+  const dir = `audio/${language}`;
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  const fileName = `${dir}/${text}.mp3`;
 
-  console.log(request);
+  if (!fs.existsSync(fileName)) {
+    const request = {
+      input: { text: text },
+      voice: { languageCode: language, ssmlGender: 'NEUTRAL' },
+      audioConfig: { audioEncoding: 'MP3' },
+    };
 
-  // Performs the text-to-speech request
-  const [response] = await textToSpeechClient.synthesizeSpeech(request);
-  // Write the binary audio content to a local file
-  const writeFile = util.promisify(fs.writeFile);
-  await writeFile('output.mp3', response.audioContent, 'binary');
-  console.log('Audio content written to file: output.mp3');
+    const [response] = await textToSpeechClient.synthesizeSpeech(request);
+    const writeFile = util.promisify(fs.writeFile);
+    await writeFile(fileName, response.audioContent, 'binary');
+    console.log(`Audio content written to file: ${fileName}`);
+  }
+
+  return fileName;
 }
 
 const PORT = process.env.PORT || 8080;
