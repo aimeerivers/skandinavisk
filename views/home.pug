@@ -9,24 +9,24 @@ html(lang='en')
     p
       form
         textarea#text(name="q") #{text}
-        input#submit(type="submit" name="d" value="English to da/no/sv")
+        input#submit(type="submit" name="d" value="Translate 🇩🇰 🇳🇴 🇸🇪")
         input#submit(type="submit" name="d" value="Skandinavisk understanding")
+  
     table
       tr
-        th 🇩🇰 dansk
-        th 🇳🇴 norsk
-        th 🇸🇪 svensk
+        td
+          p 🇩🇰 #{da}
+          audio(controls="controls")
+            source(src=`/speak/da-DK/${da}.mp3` type="audio/mpeg")
 
       tr
         td
-          p #{da}
-          audio(controls="controls")
-            source(src=`/speak/da-DK/${da}.mp3` type="audio/mpeg")
-        td
-          p #{no}
+          p 🇳🇴 #{no}
           audio(controls="controls")
             source(src=`/speak/nb-NO/${no}.mp3` type="audio/mpeg")
+
+      tr
         td
-          p #{sv}
+          p 🇸🇪 #{sv}
           audio(controls="controls")
             source(src=`/speak/sv-SK/${sv}.mp3` type="audio/mpeg")
