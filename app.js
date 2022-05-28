@@ -12,14 +12,31 @@ const projectId = 'sjov-oversaetter-1531150037182';
 const location = 'global';
 
 app.get('/', async (req, res) => {
-  var text = 'Towards a shared Scandinavian language';
+  var text = '';
+  var da, no, sv = '';
+
+  var direction = 1;
+  if (req.query.d && req.query.d == 'Skandinavisk understanding') direction = 2;
+
   if (req.query.q) text = req.query.q;
+  if(text !== '') {
+    if(direction == 1) {
+      da = await translateText(text, 'en-GB', 'da-DK');
+      no = await translateText(text, 'en-GB', 'nb-NO');
+      sv = await translateText(text, 'en-GB', 'sv-SE');
+    } else {
+      da = await translateText(text, 'da-DK', 'en-GB');
+      no = await translateText(text, 'nb-NO', 'en-GB');
+      sv = await translateText(text, 'sv-SE', 'en-GB');
+    }
+  }
+
   res.render('home', {
     title: 'Skandinavisk',
     text: text,
-    da: await translateText(text, 'en', 'da'),
-    no: await translateText(text, 'en', 'no'),
-    sv: await translateText(text, 'en', 'sv'),
+    da: da,
+    no: no,
+    sv: sv,
   });
 });
 
