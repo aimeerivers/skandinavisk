@@ -43,6 +43,7 @@ app.get('/', async (req, res) => {
     da: da,
     no: no,
     sv: sv,
+    direction: direction,
   });
 });
 

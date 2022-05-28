@@ -9,24 +9,28 @@ html(lang='en')
     p
       form
         textarea#text(name="q") #{text}
-        input#submit(type="submit" name="d" value="Translate 🇩🇰 🇳🇴 🇸🇪")
+        input#submit(type="submit" name="d" value="Translate")
         input#submit(type="submit" name="d" value="Skandinavisk understanding")
   
-    table
-      tr
-        td
-          p 🇩🇰 #{da}
-          audio(controls="controls")
-            source(src=`/speak/da-DK/${da}.mp3` type="audio/mpeg")
+    if da && no && sv
+      table
+        tr
+          td
+            p 🇩🇰 #{da}
+            if direction == 1
+              audio(controls="controls")
+                source(src=`/speak/da-DK/${da}.mp3` type="audio/mpeg")
 
-      tr
-        td
-          p 🇳🇴 #{no}
-          audio(controls="controls")
-            source(src=`/speak/nb-NO/${no}.mp3` type="audio/mpeg")
+        tr
+          td
+            p 🇳🇴 #{no}
+            if direction == 1
+              audio(controls="controls")
+                source(src=`/speak/nb-NO/${no}.mp3` type="audio/mpeg")
 
-      tr
-        td
-          p 🇸🇪 #{sv}
-          audio(controls="controls")
-            source(src=`/speak/sv-SK/${sv}.mp3` type="audio/mpeg")
+        tr
+          td
+            p 🇸🇪 #{sv}
+            if direction == 1
+              audio(controls="controls")
+                source(src=`/speak/sv-SK/${sv}.mp3` type="audio/mpeg")
