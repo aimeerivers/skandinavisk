@@ -72,7 +72,7 @@ async function translateText(text, source, target) {
 }
 
 async function speechToText(text, language) {
-  const dir = `${__dirname}/audio/${language}`;
+  const dir = `/tmp/audio/${language}`;
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
   const fileName = `${dir}/${text}.mp3`;
 
