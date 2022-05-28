@@ -22,7 +22,7 @@ app.get('/', async (req, res) => {
   var da, no, sv = '';
 
   var direction = 1;
-  if (req.query.d && req.query.d == 'Skandinavisk understanding') direction = 2;
+  if (req.query.d && req.query.d == 'Back-translate') direction = 2;
 
   if (req.query.q) text = req.query.q;
   if (text !== '') {
