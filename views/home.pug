@@ -18,19 +18,19 @@ html(lang='en')
           td
             p 🇩🇰 #{da}
             if direction == 1
-              audio(controls="controls")
+              audio(controls)
                 source(src=`/speak/da-DK/${da}.mp3` type="audio/mpeg")
 
         tr
           td
             p 🇳🇴 #{no}
             if direction == 1
-              audio(controls="controls")
+              audio(controls)
                 source(src=`/speak/nb-NO/${no}.mp3` type="audio/mpeg")
 
         tr
           td
             p 🇸🇪 #{sv}
             if direction == 1
-              audio(controls="controls")
+              audio(controls)
                 source(src=`/speak/sv-SK/${sv}.mp3` type="audio/mpeg")
