@@ -86,7 +86,6 @@ async function speechToText(text, language) {
     const [response] = await textToSpeechClient.synthesizeSpeech(request);
     const writeFile = util.promisify(fs.writeFile);
     await writeFile(fileName, response.audioContent, 'binary');
-    console.log(`Audio content written to file: ${fileName}`);
   }
 
   return fileName;
