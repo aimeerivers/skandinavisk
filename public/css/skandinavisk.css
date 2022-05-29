@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  font-size: 1.5em;
+  font-size: 1.2em;
 }
 
 textarea#text {
@@ -8,20 +8,25 @@ textarea#text {
   margin: 0 auto;
   padding: 0.5em;
   width: 20em;
+  max-width: 90%;
   height: 5em;
   font-family: sans-serif;
   font-size: 1em;
 }
 
-#submit {
-  display: block;
-  margin: 1em auto;
+p.submit {
+  text-align: center;
+}
+
+input#submit {
+  margin: 0.5em;
   font-size: 1em;
 }
 
 table {
   margin: 2em auto;
   border-collapse: collapse;
+  max-width: 90%;
 }
 
 td,th {

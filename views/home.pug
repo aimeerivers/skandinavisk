@@ -21,8 +21,9 @@ html(lang='en')
     p
       form
         textarea#text(name="q") #{text}
-        input#submit(type="submit" name="d" value="Translate")
-        input#submit(type="submit" name="d" value="Back-translate")
+        p.submit
+          input#submit(type="submit" name="d" value="Translate")
+          input#submit(type="submit" name="d" value="Back-translate")
   
     if da && no && sv
       table
