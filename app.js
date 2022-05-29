@@ -38,8 +38,11 @@ app.get('/', async (req, res) => {
     }
   }
 
+  var title = 'Skandinavisk';
+  if (text !== '') title += ' - ' + truncate(text, 25);
+
   res.render('home', {
-    title: 'Skandinavisk',
+    title: title,
     text: text,
     da: da,
     no: no,
@@ -58,6 +61,10 @@ app.get('/speak/:lang/:text.mp3', async (req, res) => {
   var readStream = fs.createReadStream(file);
   pipeline(readStream, res, () => { });
 });
+
+function truncate(str, n) {
+  return (str.length > n) ? str.substr(0, n - 1) + '...' : str;
+};
 
 async function translateText(text, source, target) {
   const request = {
