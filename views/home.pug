@@ -31,18 +31,18 @@ html(lang='en')
             p 🇩🇰 #{da}
             if direction == 1
               audio(controls)
-                source(src=`/speak/da-DK/${da.replaceAll('/', '')}.mp3` type="audio/mpeg")
+                source(src=`/speak/da-DK/${da.replace(/\//g, '')}.mp3` type="audio/mpeg")
 
         tr
           td
             p 🇳🇴 #{no}
             if direction == 1
               audio(controls)
-                source(src=`/speak/nb-NO/${no.replaceAll('/', '')}.mp3` type="audio/mpeg")
+                source(src=`/speak/nb-NO/${no.replace(/\//g, '')}.mp3` type="audio/mpeg")
 
         tr
           td
             p 🇸🇪 #{sv}
             if direction == 1
               audio(controls)
-                source(src=`/speak/sv-SK/${sv.replaceAll('/', '')}.mp3` type="audio/mpeg")
+                source(src=`/speak/sv-SK/${sv.replace(/\//g, '')}.mp3` type="audio/mpeg")
